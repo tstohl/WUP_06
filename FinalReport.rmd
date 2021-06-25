@@ -22,9 +22,20 @@ mutate(across(where(is.character), as.factor))
 Is attitude toward capitol punishment (CAPPUN) independent of race (RACE)?
 If not, then whose view differs from whom??
 
+
+#introduction
+
+In this survey, the association between RACE and Capital Punishment(the death sentence) are connected in any way. Does race of a particular party change the way they feel about Capital punishment. The null hypothesis states there is no difference in opionion of Capitol punishmeny ans race. The alternative hypothesis is the latter, stating that there is great chance between races and opinion.
+
+
+
 # Methods
 
 <!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method. Discuss what data manipulations may be needed for example subsetting or other binning procedures and what sort of graphical displays and inferential tools will be used!-->
+
+First, to make the data work it was necessay to chance the variable into a format that was easier to handle. Line 15 uses a mutate function to chance the character variable into factor variables. The variables being used in this stuy are RACE, which has three levels that include Black, white, and Other. Other refers to all races that are not black or white. CAPPUN stands for capital punishment and there are two levels in that category, either in favor or against.
+
+The helper files that was used for thus project was the Cat~Cat helper file since both of the variables are categorical.
 
 # Results
 
@@ -44,7 +55,7 @@ barchartGC(~RACE + CAPPUN,data=GSS, type="percent")
 ```
 
 
-In the first plot, the number of participants in each cetegory are displayed. There are about 30 participants that fall into the Black category, around 24 people in the Other category and lastly, around 120 people in the White category. Most of the participants in this study fell into the white category.
+In the first plot, the number of participants in each cetegory are displayed. There are about 30 participants that fall into the Black category, around 24 people in the Other category and lastly, around 140 people in the White category. Most of the participants in this study fell into the white category.
 
 Based on what can be seen in the second plot, it appears that the black population is far more against CAPPUN(capitol punishment), than the white population and the Other category. While around 38% of the black population was in favor of CAPPUN, around the same percentage of the white population( around 38%) was not opposed CAPPUN. The Bar representing "Other," refers to races that are not black or white. These results seem to be vastly different  for the results of the black community as well. Of the other category,it looks like about 80% are in favor of CAPPUN and only about 20% are against it. All in all, The black community is much more against CAPPUN(capitol punishment) than the Other community and the white population. The white group and other group have results that seem to be more closely related.
 
@@ -59,6 +70,11 @@ rowPerc(table1)
 colPerc(table1)
 ```
 
+These are the numerical results that correlate to the plots above. It appears that the Black population are in favor of CAPPUN by only about 34%. The white population was in favor at about 69 percent. The white population was in favor of CAPPUN times times more than the black category. The Other category was approximately in favor of CAPPUN at a shocking 83%, and only was aginst it by about 17%. The results for the White cetegory and the White category are much more similar to each other that they are to the Black category. The results from the Black category seem to have differing values.
+
+The second Section of data above are the numerical results that correlate to the first plot above. Now it is clear what the exact number of participants in each race category were. It appears that there was a total of about 36 participants in the Black category, about 17 in the Other category, and lastly around 146 people in the White category. There is quite a bit more people that fall into the white category than the Black and Other category.
+
+
 ## Inferential Results
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
@@ -68,11 +84,32 @@ chisq.test(table1)
 print("killroy was here")
 chisqtestGC(table1)
 ```
+There are two seperate commands being used as there are two seperate types of Chi-squared tests that are being used. Chi-squared testsare used when there are more than two levels that need to be tested. To separate the  two sets of results from one another the line "killroy was here, " was added. This makes knowing what results belong to which Chi-squared test easier to interpret. The first Chi-squared test is a standard test. The second Chi-Squared test(chisqtestGC) is a tests that can be found embedded in tigerstats and accompanies a couple other capabilities that the standard chi-squared test doesn't have. These tests were modifies to focus on table 1.
+
+Specific numbers of paricipants are now clear. Of the 26 people in thr Black category, only nine were in favor of CAPPUN and 17 were against. Of the Other category, 15 were in favor and 3 were against CAPPUN. In the White category, 92 rooted for CAPPUN and only 42 were against. 
+
+The first chi-squared tests displays about 14 as its results. The Degree of freedom was 2 and the P-value is 0.00089.
+The second chi-squared test results are also 14, degree of freedom 2, and P-value 0.000.9. The results in the chi-squared test are expected to be about the as the degree of freedom. Since 14 is way off from two it can be decided that these rults are very different.These numbers extremely tiny number indicates that these results are unlikely to occur by chance. These results show that the P-value can be rejected in favor of the Alternative. However, it is still not clear what categories are different from another. Further testing will be  necessary to make these differences clear. 
 
 
 
 
 
+
+
+```{r}
+fisherXY(GSS$RACE,GSS$CAPPUN, confL = 0, printAll = TRUE)
+```
+
+The code that was used for these tests were modifies to include all comparisons possible to make determining differences more accurate. 
+fisherXY(x,y confL = 0, printAll = FALSE) was used to create the results.
+
+The p-value for the first comparison is 0.002. This number indicates a one in two-thousand chance these results would occur. This comparison is between Black and Other. The true odds ratio is not equal to 1. To indicate no change, the odds ratio must include 1. The odds ratio between The Black category and the Other category is  0.016 to 0.54. These results do not contain 1 and so there is a difference in results. 
+
+The P-value for the comparison of the resukts of the Black category and White category is 0.001. Also a very small number, and unlikely to occur by chance.
+The odds ratio for these two categories is 0.08 to 0.63. The number 1 doesn't fall in this range and so these results are also noted to be drastically different. 
+
+The last two categories that are compared are White and Other. the p value for these two was different, it is 0.27, and this number isn't terribly tiny. the odds ratio ranges from  0.59 to 12.89. 1 does in fact fall into this bracket and so it can be concluded that these two categrories do not have differing results.
 
 
 
@@ -80,3 +117,7 @@ chisqtestGC(table1)
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If you found a relationship be sure to consider whether the relationship occurs because one of the variavbles causes the other, or whether they perhasps are related for some other reason.  Watch the chapter 6 videos from the GeorgeTown videos collection.!-->
+
+
+
+All in all it was determined that The Black category was vastly different from the Other category and the White category. The white and other category did not seem to be
